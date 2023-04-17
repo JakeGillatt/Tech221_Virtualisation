@@ -36,11 +36,11 @@ If you wish to pause the VM, use `vagrant halt`, and if you want to destroy the 
      
      ```
      #!/bin/bash
-sudo apt update -y
-sudo apt upgrade -y
-sudo apt install nginx -y
-sudo systemctl restart nginx
-sudo systemctl enable nginx
+     sudo apt update -y
+     sudo apt upgrade -y
+     sudo apt install nginx -y
+     sudo systemctl restart nginx
+     sudo systemctl enable nginx
      ```
      
 - In the vagrantfile file, add `config.vm.provision "shell", path: "provision.sh"` to the code.
