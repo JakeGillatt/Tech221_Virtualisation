@@ -18,7 +18,7 @@ to collaborate on a project.
 - In the VScode terminal, command `vagrant up` (to launch the VM), will execute the provision script.
 #
 # Vagrant Commands:
-#
+
 $ vagrant
 Usage: `vagrant [options] <command> [<args>]`
 
