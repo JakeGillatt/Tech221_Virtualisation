@@ -11,6 +11,25 @@ to collaborate on a project.
 # Vagrant diagram:
 ![Vagrant-Diagram.png](Vagrant-Diagram.png)
 #
+# Vagrant Virtualbox connection
+
+After installing both VirtualBox and Vagrant, create a new directory for a new Vagrant Project (use git bash command mkdir <filename>).
+Open the Git Bash terminal and initialise a new vagrant project using `vagrant init`
+In VScode open the Vagrantfile and change the code to the following:
+     
+```
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "ubuntu/xenial64"
+end
+```
+
+- Save the vagrant file, and turn on autosave for future reference
+- Start the VM by running `vagrant up`
+     
+We can now use `vagrant ssh` to connect via ssh to the virtual machine.
+If you wish to pause the VM, use `vagrant halt`, and if you want to destroy the VM we use `vagrant destroy` - this will delete the VM.
+#
 # How to provision a Virtual Machine using Vagrant?
 - Create a provision.sh file in the same directory as the vagrantfile.
 - Enter the relevant commands you wish to be called when the script runs, then save the file.
