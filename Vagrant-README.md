@@ -12,10 +12,10 @@ to collaborate on a project.
 ![Vagrant-Diagram.png](Vagrant-Diagram.png)
 #
 # How to provision a Virtual Machine using Vagrant?
-- Create a provision.sh file in the same directory as the vagrantfile
-- Enter the relevant commands you wish to be called when the script runs and save the file
-- In the vagrantfile file, add `config.vm.provision "shell", path: "provision.sh"` to the code
-- In the VScode terminal, command `vagrant up` (to launch the VM), will execute the provision script
+- Create a provision.sh file in the same directory as the vagrantfile.
+- Enter the relevant commands you wish to be called when the script runs, then save the file.
+- In the vagrantfile file, add `config.vm.provision "shell", path: "provision.sh"` to the code.
+- In the VScode terminal, command `vagrant up` (to launch the VM), will execute the provision script.
 #
 # Vagrant Commands:
 #
