@@ -32,7 +32,17 @@ If you wish to pause the VM, use `vagrant halt`, and if you want to destroy the 
 #
 # How to provision a Virtual Machine using Vagrant?
 - Create a provision.sh file in the same directory as the vagrantfile.
-- Enter the relevant commands you wish to be called when the script runs, then save the file.
+- Enter the relevant commands you wish to be called when the script runs. (in this case, listed below), then save the file.
+     
+     ```
+     #!/bin/bash
+sudo apt update -y
+sudo apt upgrade -y
+sudo apt install nginx -y
+sudo systemctl restart nginx
+sudo systemctl enable nginx
+     ```
+     
 - In the vagrantfile file, add `config.vm.provision "shell", path: "provision.sh"` to the code.
 - In the VScode terminal, command `vagrant up` (to launch the VM), will execute the provision script.
 #
