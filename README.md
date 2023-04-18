@@ -114,7 +114,31 @@ Common commands:
      winrm-config    outputs WinRM configuration to connect to the machine  
 
 For help on any individual command run `vagrant COMMAND -h`
+#
+# Installing an app on the Virtual Machine using vagrant
 
-# Installing an app on VM using vagrant
+We want to install an app on the virtual machine using vagrant:
+ 
+1. Sync the 'app' folder by adding `config.vm.synced_folder "app", "/home/vagrant/app"` to the vagrantfile
+2. Run the `vagrant up` command in the VScode terminal to launch the VM
+3. Once the VM is running, head over to the git bash terminal and `vagrant ssh` to connect into the VM
+4. use `ls` to check if the 'app' folder has been synced
+5. In the VScode terminal, use `cd environment/spec-tests` to enter the spec-tests directory
+6. Now we need to install bundle to run the tests. Enter `gem install bundle`
+7. Use command `bundle` to bundle up the tests
+8. Now use `rake spec` to launch the tests
+9. After checking all the test few of them are failed. To fix it we need to install all the missing packages
+10. Back in Git bash, navigate to the vagrantfile dir
+11. Install NodeJS with `sudo apt-get install nodejs -y`
+12. When NodeJs is finished installing, we can install python properties with `sudo apt-get install python-software-properties -y`
+13. Next we install the specific version with `curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -` this ensures that it's nodejs version 6.x.
+14. Run `sudo apt-get install nodejs -y` again and then `nodejs --version` to check it's correct
+15. Now we need to install the package manager for node using `sudo npm install pm2 -g`
+16. In VS Code terminal we can run `rake spec` to see if the tests have passed
+17. Next we need to go back to GitBash, go into the app folder by using `cd app`
+18. Use `npm install` and then `node app.js` to launch the app
+
+- To check if everything works, enter http://192.168.10.100:3000 into the web browser
+ 
 
 
