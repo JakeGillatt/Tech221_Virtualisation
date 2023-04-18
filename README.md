@@ -116,31 +116,5 @@ Common commands:
 For help on any individual command run `vagrant COMMAND -h`
 
 # Installing an app on VM using vagrant
-Need to get app folder into vagrant file so can run on vm.
 
-so need to sync the app folder with vagrant file - so a change in one file will lead to a change in the other
-
-in vagrant file add the following code:
-
-`config.vm.synced_folder "app", "/home/vagrant/app"`
-
-the file we are targeting: app where in the vm we want the app file to be stored: /home/vagrant/app
-
-```
-Vagrant.configure("2") do |config|
-
-  config.vm.box = "ubuntu/xenial64"
-  config.vm.network "private_network", ip: "192.168.10.100"
-  config.vm.provision "shell", path: "provision.sh"
-
-  #syncing the app folders
-  config.vm.synced_folder "app", "/home/vagrant/app"
-
-end
-```
-Type `vagrant up` in your VS code.
-
-On visual studio code, check the enviroment folder as we need to run a test to check our enviromenet is correct. The test is in spec test folder.
-
-The test will be run using ruby, so need to make sure ruby is installed.
 
