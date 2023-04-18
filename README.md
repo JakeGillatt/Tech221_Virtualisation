@@ -156,4 +156,52 @@ cd /home/vagrant/app; node app.js
 ```
 - Now run `vagrant up` and this will run the VM with nginx installed and the Node.js app installed and running
 
+#
+# What are Ports?
+ 
+IP ports are a mechanism used by the Internet Protocol (IP) to identify specific applications or services running on a computer or other network device. Ports are numbered, and each port is associated with a particular protocol or type of service. A computer port is essentially a type of electronic docking point through which information flows from a program on your computer or to your computer from the Internet or another computer in a network.
+ 
+Ports are numbered for consistency and programming. The most commonly used and best-known ports are those numbered 0 to 1023 dedicated for Internet use, but they can extend far higher for specialized purposes. Each port set or range is assigned specialized jobs or functions, and that’s generally all they do. Usually, all identical system services or functions use the same port numbers on the receiving servers.
+#
+# What is a Reverse Proxy and how is it different to a Proxy?
+ 
+A reverse proxy is a type of proxy server that sits between a client and a server. It handles requests from clients on behalf of the server. Unlike a traditional proxy server, which forwards requests from a client to a server, a reverse proxy receives requests from the internet and forwards them to the appropriate server. Also, from a security perspective, a reverse proxy can help protect the servers behind it from attacks by intercepting and filtering incoming traffic.
+
+The main difference between a reverse proxy and a traditional proxy server is the direction of the communication flow. In a traditional proxy server, the client sends requests to the proxy server, which then forwards them to the destination server. In contrast, in a reverse proxy scenario, the client sends requests to the reverse proxy, which then forwards the requests to the appropriate server on behalf of the client.
+
+Reverse proxies can be used for various purposes, including load balancing, caching, and security. By sitting in front of one or more servers, a reverse proxy can distribute incoming traffic across multiple servers, helping to balance the load and prevent any one server from becoming overwhelmed. Additionally, a reverse proxy can cache frequently requested content, reducing the load on the servers and improving response times for clients.
+ 
+![Dev-Environment.png](Reverse-Proxy-Diagram.jpg)
+
+#
+# What is Nginx default configuration?
+
+- the default configuration file for Nginx is usually located at /etc/nginx/nginx.conf.
+ 
+A default configuration file is a pre-configured file that comes with a software application or service. It is designed to provide a basic setup for the application or service, which can be modified or customized as per the user's requirements.
+
+the default Nginx configuration includes a 'sites-available' directory, which contains configuration files for virtual hosts or websites.
+
+Within the sites-available directory, there is typically a default virtual host configuration file named default. This file specifies the settings for the default virtual host, which is used when no other virtual hosts are specified.
+
+The default configuration file contains the following settings:
+
+- server_name: This specifies the server's domain name or IP address.
+
+- listen: This specifies the port on which Nginx should listen for incoming connections.
+
+- root: This specifies the root directory for the website's files.
+
+- index: This specifies the default index file for the website.
+
+- error_page: This specifies the location of the custom error pages for the website.
+
+- access_log: This specifies the location and format of the access log file.
+
+- location /: This specifies how Nginx should handle requests for the root directory of the website.
+
+#
+# Setting up a Nginx Reverse Proxy:
+ 
+
 
