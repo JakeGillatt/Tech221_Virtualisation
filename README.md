@@ -18,7 +18,7 @@ A typical dev environment includes a code editor, a compiler or interpreter, deb
 control software. These tools are often integrated into a single platform or framework, such as an integrated 
 development environment (IDE).
 
-![Dev-Environment.png](Dev-Environment2.png)
+![Dev-Environment.png](Dev-Environment-v2.png)
 
 # What is the purpose of a Dev Environment?
 
