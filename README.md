@@ -139,7 +139,7 @@ We want to install an app on the virtual machine using vagrant:
 18. Use `npm install` and then `node app.js` to launch the app
 
 - To check if everything works, enter http://192.168.10.100:3000 into the web browser
- 
+#
 # Using the provision script to automate the installation and launching of an App in the virtual machine:
 
 - Add the following code to the provision script:
