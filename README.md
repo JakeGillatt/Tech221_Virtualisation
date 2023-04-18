@@ -114,3 +114,68 @@ Common commands:
      winrm-config    outputs WinRM configuration to connect to the machine  
 
 For help on any individual command run `vagrant COMMAND -h`
+
+# Installing an app on VM using vagrant
+Need to get app folder into vagrant file so can run on vm.
+
+so need to sync the app folder with vagrant file - so a change in one file will lead to a change in the other
+
+in vagrant file add the following code:
+
+`config.vm.synced_folder "app", "/home/vagrant/app"`
+
+the file we are targeting: app where in the vm we want the app file to be stored: /home/vagrant/app
+
+```
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "ubuntu/xenial64"
+  config.vm.network "private_network", ip: "192.168.10.100"
+  config.vm.provision "shell", path: "provision.sh"
+
+  #syncing the app folders
+  config.vm.synced_folder "app", "/home/vagrant/app"
+
+end
+```
+Type `vagrant up` in your VS code.
+
+Head over to Git Bash and type vagrant ssh (make sure that you are in the correct folder where your code is saved). Need to make sure app folder is synched to virtual machine.
+
+Once the VM is running, type ls to make sure the app folder is in virtual machine. Then cd to app folder and then ls to see what's inside the app folder.
+
+We need to ask the following questions as a devops: what framework what language what version of packages what wil the app look like
+
+This is because, we need to make sure that our enviroment is the correct one needed for the app.
+
+On visual studio code, check the enviroment folder as we need to run a test to check our enviromenet is correct. The test is in spec test folder.
+
+The test will be run using ruby, so need to make sure ruby is installed.
+
+Whilst in visual studio code, cd into spec test folder in our enviroment folder.
+
+Type the following commands in visual studio terminal:
+
+gem install bundler - allows us to bundle all test together
+bundle - bundles all the test
+rake spec - this is the command developers created, which will run test. it starts all the tests. if doesnt work then type in gem install serverspec
+if the test is run successfully it will show that we need the following:
+
+need nodejs need nodejs version 6 need pm2
+
+go to git bash and type the following commands:
+
+sudo apt-get install nodejs -y - installs nodejs
+sudo apt-get install python-software-properties - The "python-software-properties" package provides a tool called "add-apt-repository" which is used to add new software repositories to the system's package sources list.
+grabs the version of nodejs that we want: curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+puts version 6 in affect: sudo apt-get install nodejs -y
+checks the version of node: nodejs --version
+pm2 - used to unpackage the app. its package manager for nodejs. type the following in git bash app to install it:
+
+sudo npm install pm2 -g
+
+Whilst in your git bash app, cd into app then run the following commands:
+
+npm install - used to install Node.js packages or dependencies for a Node.js projec
+node app.js - is used to run a Node.js application called "app.js
+Go to webbrowers and type in ip_address:3000
