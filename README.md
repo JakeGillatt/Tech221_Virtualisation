@@ -127,7 +127,7 @@ We want to install an app on the virtual machine using vagrant:
 6. Now we need to install bundle to run the tests. Enter `gem install bundle`
 7. Use command `bundle` to bundle up the tests
 8. Now use `rake spec` to launch the tests
-9. After checking all the test few of them are failed. To fix it we need to install all the missing packages
+9. After checking all the tests, some of them will show as failed. To fix this we need to install all the missing packages
 10. Back in Git bash, navigate to the vagrantfile dir
 11. Install NodeJS with `sudo apt-get install nodejs -y`
 12. When NodeJs is finished installing, we can install python properties with `sudo apt-get install python-software-properties -y`
