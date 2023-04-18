@@ -203,5 +203,35 @@ The default configuration file contains the following settings:
 #
 # Setting up a Nginx Reverse Proxy:
  
+1. Use `sudo nano /etc/nginx/sites-available/reverse-proxy` to create a reverse proxy file
+2. Add the following code:
+ 
+```
+server {
+   listen 80;
+   server_name 192.168.10.100;
 
+   location / {
+       proxy_pass http://192.168.10.100:3000;
+       proxy_set_header Host $host;
+       proxy_set_header X-Real-IP $remote_addr;
+       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+       proxy_set_header X-Forwarded-Proto $scheme;
+   }
+}
+```
+Go to `cd /etc/hosts` file and include the following code to define the hostname in the DNS:
+
+`192.168.1.100   backend-server`
+
+check the configuration file for errors
+ 
+`sudo nginx -t`
+ 
+Now reload nginx
+ 
+`sudo systemctl reload nginx`
+ 
+- Enter the ip into the web browser to test the app is working
+ 
 
