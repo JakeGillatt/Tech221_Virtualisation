@@ -140,5 +140,20 @@ We want to install an app on the virtual machine using vagrant:
 
 - To check if everything works, enter http://192.168.10.100:3000 into the web browser
  
+# Using the provision script to automate the installation and launching of an App in the virtual machine:
+
+- Add the following code to the provision script:
+```
+sudo apt install nodejs -y
+sudo apt install python-software-properties
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+sudo apt install nodejs -y
+
+sudo npm install pm2 -g
+
+cd /home/vagrant/app; npm install
+cd /home/vagrant/app; node app.js
+```
+- Now run `vagrant up` and this will run the VM with nginx installed and the Node.js app installed and running
 
 
