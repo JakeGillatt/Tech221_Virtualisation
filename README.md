@@ -265,3 +265,32 @@ end
 
 We created two 'vm.define' sections of code and defined them with the relevant VM names. in this case, 'app' and 'db'.
 We separate the two sections with indentation, adding `end` to close each section/VM.
+
+#
+# How to provision MongoDB on our 'db' VM:
+
+1. Create a new provision file called provisionDB.sh (in this case, within the same directory)
+2. Add the new provision to the vagrantfile with `db.vm.provision "shell", path: "provisionDB.sh"`
+- note: The code in step 2 must be added to the db section of the vagrantfile under `db.vm.network ...`
+3. Back in the provisionDB.sh file we need to add the following commands:
+```
+#!/bin/bash
+sudo apt update -y
+sudo apt upgrade -y
+
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv D68FA50FEA312927
+
+echo "deb https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+
+sudo apt update -y
+sudo apt upgrade -y
+
+sudo apt-get install -y mongodb-org=3.2.20 mongodb-org-server=3.2.20 mongodb-org-shell=3.2.20 mongodb-org-mongos=3.2.20 mongodb-org-tools=3.2.20
+
+sudo systemctl start mongod
+sudo systemctl status mongod
+```
+- I included `sudo systemctl status mongod` so that when the VM is finished the startup it will display whether the mongod service is running
+4. Now in the vagrant terminal, run `vagrant up db`
+5. Once it has finished, check that we are getting `Active: active (running)`
+
