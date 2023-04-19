@@ -203,8 +203,9 @@ The default configuration file contains the following settings:
 #
 # Setting up a Nginx Reverse Proxy:
  
-1. Use `sudo nano /etc/nginx/sites-available/reverse-proxy` to create a reverse proxy file
-2. Add the following code:
+- Once the VM and the app are running:
+ 
+1. Use `sudo nano /etc/nginx/sites-available/default` to access the nginx configuration file and replace the contents with the following code:
  
 ```
 server {
@@ -220,19 +221,11 @@ server {
    }
 }
 ```
-Go to `cd /etc/hosts` file and include the following code to define the hostname in the DNS:
-
-`192.168.1.100   backend-server`
-
-check the configuration file for errors
+2. Save the file with CTRL + X
  
-`sudo nginx -t`
+3. Now reload nginx with `sudo systemctl reload nginx`
  
-Now reload nginx
- 
-`sudo systemctl reload nginx`
- 
-- Enter the ip into the web browser to test the app is working
+4. Enter the ip into your web browser to test the app is working
  
 #
 # Creating multiple VM's with vagrant
@@ -294,3 +287,5 @@ sudo systemctl status mongod
 4. Now in the vagrant terminal, run `vagrant up db`
 5. Once it has finished, check that we are getting `Active: active (running)`
 
+#
+# How to provision the reverse server proxy
