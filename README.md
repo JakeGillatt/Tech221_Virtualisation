@@ -234,4 +234,34 @@ Now reload nginx
  
 - Enter the ip into the web browser to test the app is working
  
+#
+# Creating multiple VM's with vagrant
 
+We can create multiple VM's with vagrant by editting the vagrantfile:
+```
+Vagrant.configure("2") do |config|
+
+  config.vm.define "app" do |app| # everything under this is refering to 'app'
+    app.vm.box = "ubuntu/xenial64"
+    app.vm.network "private_network", ip: "192.168.10.100" # connect via browser
+    # config.vm.network "forwarded_port", guest: 80, host: 80
+
+    # run the provision script for the VM
+    app.vm.provision "shell", path: "provision.sh"
+
+    # syncing the app folder 
+    app.vm.synced_folder "app", "/home/vagrant/app" # the full dir of the app
+
+  end
+  # created a second VM
+  config.vm.define "db" do |db|
+    db.vm.box = "ubuntu/xenial64"
+    db.vm.network "private_network", ip: "192.168.10.150"
+
+  end  
+
+end
+```
+
+We created two 'vm.define' sections of code and defined them with the relevant VM names. in this case, 'app' and 'db'.
+We separate the two sections with indentation, adding `end` to close each section/VM.
