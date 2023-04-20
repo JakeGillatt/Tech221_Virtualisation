@@ -289,3 +289,95 @@ sudo systemctl status mongod
 
 #
 # How to provision the reverse server proxy
+
+1. Create a file in the same directory as the vagrantfile and name it "nginx.conf"
+2. Add the following code to the file:
+```
+server {
+    listen 80;
+    server_name _;
+
+    location / {
+        proxy_pass http://192.168.10.100:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+3. Now in the provision.sh file, add the following code between `sudo apt install nginx -y` and `sudo systemctl restart nginx`:
+```
+sudo rm /etc/nginx/sites-enabled/default
+sudo ln -s /vagrant/nginx.conf /etc/nginx/sites-enabled/
+sudo service nginx restart
+```
+4. Run `vagrant up` and the reverse proxy will be running. test by entering `192.168.10.100` into your browser
+
+#
+# How to connect your app VM to your database VM:
+
+- Once both VM's are launched with `vagrant up` and are finished loading:
+
+1. In the db VM, use `sudo nano /etc/mongod.conf` to edit the mongod.conf file
+2. Inside the file, under 'network interfaces' change the ip to `0.0.0.0` - it should look like the following:
+```
+# network interfaces
+net:
+  port: 27017
+  bindIp: 0.0.0.0
+```
+3. CTRL + X, press y and then enter to save the file
+4. Now enter `sudo systemctl restart mongod` to restart mongodb
+5. Enter `sudo systemctl enable mongod` to re-enable mongodb
+6. Now in the app VM we need to add a variable to the .bashrc file. Use `sudo nano .bashrc` to edit the file. 
+7. Go to the bottom of the file and add the variable `export DB_HOST=mongodb://192.168.10.150:27017/posts` - this provides the connection ip information
+8. Save the file and enter `source .bashrc` to reload the file
+9. Use `printenv DB_HOST` to check the connection
+10. Enter `cd app` to go into the app folder and then use `node seeds/seed.js` to seed the database
+11. Put the address into your browser to check it's worked - `http://192.168.10.100:3000/posts` - you should recieve the posts page of the app
+
+#
+# How to provision connecting your app VM to you database VM:
+
+1. Create a file in the same directory as your vagrantfile and name it "add_db_host.sh"
+2. Add the following code to the file:
+```
+#!/bin/bash
+
+echo 'export DB_HOST=mongodb://192.168.10.150:27017/posts' >> .bashrc
+
+source .bashrc
+```
+3. Reference this script in the vagrant file by adding `config.vm.provision "shell", path: "add_db_host.sh"` underneath `Vagrant.configure("2") do |config|`
+4. Create a file in the same DIR as the vagrantfile called "mongod.conf" and add the following code:
+```
+# Where and how to store data.
+storage:
+  dbPath: /var/lib/mongodb
+  journal:
+    enabled: true
+#  engine:
+#  mmapv1:
+#  wiredTiger:
+
+# where to write logging data.
+systemLog:
+  destination: file
+  logAppend: true
+  path: /var/log/mongodb/mongod.log
+
+# network interfaces
+net:
+  port: 27017
+  bindIp: 0.0.0.0
+```
+ 5. Now go into the database provision file (provisionDB) and add the following code below the `sudo systemctl start mongod` command:
+```
+sudo rm /etc/mongod.conf # removes the existing conf file
+sudo ln -s /vagrant/mongod/.conf /etc
+```
+6. Remove the `cd app; node seeds/seed.js` and `cd /home/vagrant/app; pm2 start app.js` commands from the provision.sh script
+7. Run `vagrant up`, once both VMs have loaded, in git bash - SSH into the app VM (`vagrant ssh app`)
+8. Enter the `cd app; node seeds/seed.js` and `cd /home/vagrant/app; pm2 start app.js` into the git bash
+9. go to the browser and enter `192.168.10.100/posts` and the posts page of the app should be displayed
