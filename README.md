@@ -375,7 +375,7 @@ net:
  5. Now go into the database provision file (provisionDB) and add the following code below the `sudo systemctl start mongod` command:
 ```
 sudo rm /etc/mongod.conf # removes the existing conf file
-sudo ln -s /vagrant/mongod/.conf /etc
+sudo ln -s /vagrant/mongod/.conf /etc # adds the new conf file
 ```
 6. Remove the `cd app; node seeds/seed.js` and `cd /home/vagrant/app; pm2 start app.js` commands from the provision.sh script
 7. Run `vagrant up`, once both VMs have loaded, in git bash - SSH into the app VM (`vagrant ssh app`)
