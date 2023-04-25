@@ -331,7 +331,7 @@ net:
 4. Now enter `sudo systemctl restart mongod` to restart mongodb
 5. Enter `sudo systemctl enable mongod` to re-enable mongodb
 6. Now in the app VM we need to add a variable to the .bashrc file. Use `sudo nano .bashrc` to edit the file. 
-7. Go to the bottom of the file and add the variable `export DB_HOST=mongodb://192.168.10.150:27017/posts` - this provides the connection ip information
+7. Go to the bottom of the file and add the variable `export DB_HOST=mongodb://192.168.10.150:27017/posts` - this provides the connection ip information. This must be the same ip as the database if using public address.
 8. Save the file and enter `source .bashrc` to reload the file
 9. Use `printenv DB_HOST` to check the connection
 10. Enter `cd app` to go into the app folder and then use `node seeds/seed.js` to seed the database
